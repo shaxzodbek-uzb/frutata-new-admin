@@ -6,7 +6,8 @@
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
       <LayoutsHeader />
 
-      <div class="w-full overflow-x-hidden border-t flex flex-col">
+      <div class="w-full overflow-x-hidden border-t flex flex-col ">
+        
         <Nuxt />
 
         <LayoutsFooter />

@@ -21,7 +21,12 @@
               </td>
             </tr>
 
-            <tr v-if="items.length == 0">
+            <tr v-if="loading == false && items.length == 0">
+              <td colspan="3" class="px-2 py-4 text-center text-xl">
+                  No items found!
+              </td>
+            </tr>
+            <tr v-if="loading == true">
               <td colspan="3">
                 <Loader />
               </td>
@@ -38,7 +43,8 @@ export default {
   name: 'IndexPage',
   data() {
       return {
-          items: []
+          items: [],
+          loading: true,
       }
   },
   mounted() {
@@ -46,9 +52,11 @@ export default {
   },
   methods: {
       loadItems(){
-          this.$axios.$get('requests').then(({requests}) => {
-              this.items = requests
-            })
+        this.loading = true;
+        this.$axios.$get('requests').then(({requests}) => {
+          this.items = requests
+          this.loading = false
+        })
       }
   }
 }

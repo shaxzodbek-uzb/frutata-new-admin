@@ -5,12 +5,13 @@
       <div class="w-1/2"></div>
       <div class="relative w-1/2 flex justify-end">
         <button
+          v-click-outside="closeMenu"
           class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none"
           @click="isOpen = !isOpen"
         >
           <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" />
         </button>
-        <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+        <div v-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
           <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
           <a href="#" class="block px-4 py-2 account-link hover:text-white">Support</a>
           <a href="#" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
@@ -112,8 +113,13 @@
 export default {
     data() {
         return {
-        isOpen: false
-    }
+          isOpen: false
+        }
+    },
+    methods: {
+      closeMenu(){
+        this.isOpen = false;
+      }
     }
 }
 </script>
