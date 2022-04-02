@@ -18,13 +18,7 @@
                <Textarea label="Contect"  v-model="news.content"/>
                <Textarea label="Contect ru" v-model="news.content_ru"/>
                <Textarea label="Contect en" v-model="news.content_en"/>
-               
-<!-- 
-                <div class="col-span-6 sm:col-span-4">
-                  <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                  <input type="text" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                </div> -->
-
+               <File label="Image" v-model="news.image"/>
               </div>
             </div>
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -37,29 +31,32 @@
 </template>
 
 <script>
+import {convertJsonToFormData} from '@/utils/form';
+
 export default {
     data(){
         return {
-            news: {
-                title: '',
-                title_ru: '',
-                title_en: '',
-                content: '',
-                content_ru: '',
-                content_en: '',
+          news: {
+            title: 'yangilik 2',
+                title_ru: 'yangilik 2',
+                title_en: 'yangilik 2',
+                content: 'yangilik 2',
+                content_ru: 'yangilik 2',
+                content_en: 'yangilik 2',
+              image: null,
             }
         }
     },
     methods: {
         submit(){
             console.log('submit')
-            
-            this.$axios.$post('news', this.news).then(({news}) => {
+            const formData = convertJsonToFormData(this.news);
+            this.$axios.$post('news', formData).then(({news}) => {
                 if(news && news.id){
                     this.$router.push('/news')
                 }
             })
-        }
+        },
     }
 }
 </script>

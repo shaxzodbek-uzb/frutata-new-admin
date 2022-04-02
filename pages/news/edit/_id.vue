@@ -18,6 +18,7 @@
                <Textarea label="Contect"  v-model="news.content"/>
                <Textarea label="Contect ru" v-model="news.content_ru"/>
                <Textarea label="Contect en" v-model="news.content_en"/>
+               <File label="Image" v-model="news.image"/>
                
 <!-- 
                 <div class="col-span-6 sm:col-span-4">
@@ -37,6 +38,7 @@
 </template>
 
 <script>
+import {convertJsonToFormData} from '@/utils/form';
 export default {
     data(){
         return {
@@ -47,6 +49,7 @@ export default {
                 content: '',
                 content_ru: '',
                 content_en: '',
+                image: null
             }
         }
     },
@@ -60,13 +63,15 @@ export default {
             })
         },
         submit(){
-            console.log('submit')
-            
-            this.$axios.$put(`news/${this.news.id}`, {...this.news, '_method': 'PUT'}).then(({news}) => {
-                if(news && news.id){
-                    this.$router.push('/news')
-                }
-            })
+          console.log('submit')
+          
+            const formData = convertJsonToFormData(this.news);
+            formData.append('_method', 'PUT');
+          this.$axios.$post(`news/${this.news.id}`,formData).then(({news}) => {
+              if(news && news.id){
+                  this.$router.push('/news')
+              }
+          })
         }
     }
 }
